@@ -1,6 +1,8 @@
 
 const SERVER_URL = 'http://127.0.0.1:5002'
 
+let  dataFromExternalApi = []
+
 /*
   --------------------------------------------------------------------------------------
   Função para obter a lista existente do servidor via requisição GET
@@ -26,7 +28,6 @@ const getList = async () => {
   --------------------------------------------------------------------------------------
 */
 getList()
-
 
 /*
   --------------------------------------------------------------------------------------
@@ -171,3 +172,52 @@ document.addEventListener('DOMContentLoaded', function () {
       new bootstrap.Tooltip(tooltipTriggerEl);
   });
 });
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para conectar na API externa e obter os dados
+  --------------------------------------------------------------------------------------
+*/
+const getAllDataFromNotion = (async) => {
+
+  fetch(`${SERVER_URL}/notion-data`)
+  .then(response => response.json())
+  .then(data => {
+    dataFromExternalApi = data;
+    console.log("Resposta Completa da API do Notion:", data);
+    // Exibindo as propriedades de cada item retornado
+    data.forEach(item => {
+      console.log("Item:", item);
+   
+      // Mostrando todos os campos que o item possui
+      document.getElementById("newInput").value  = item.Nome; // inputTask
+      document.getElementById("newProduct").value = item.Produto //inputProduct
+      document.getElementById("newType").value  =  item.Tipo; //inputType
+      document.getElementById("newPriority").value  = item.Prioridade; //inputPriority
+      document.getElementById("newStartDate").value  =  item["Data inicio"] + "T08:00"; //inputStartDate
+      document.getElementById("newEndDate").value  = item["Data Fim"] + "T10:00"; //inputEndDate
+      return
+    });
+  })
+  .catch(error => console.error('Erro ao acessar a API externa', error));
+}
+
+getAllDataFromNotion()
+
+const getItemFromNotion = (async) => {
+    console.log("Tamanho da lista atual disponivel ", dataFromExternalApi.length);
+    if (dataFromExternalApi.length > 0) {
+      // Exibindo as propriedades de cada item retornado
+      item = dataFromExternalApi.pop(0);
+      console.log("Item:", item);
+      // Mostrando todos os campos que o item possui
+      document.getElementById("newInput").value  = item.Nome; // inputTask
+      document.getElementById("newProduct").value = item.Produto //inputProduct
+      document.getElementById("newType").value  =  item.Tipo; //inputType
+      document.getElementById("newPriority").value  = item.Prioridade; //inputPriority
+      document.getElementById("newStartDate").value  =  item["Data inicio"] + "T08:00"; //inputStartDate
+      document.getElementById("newEndDate").value  = item["Data Fim"] + "T10:00"; //inputEndDate
+    } else {
+      getAllDataFromNotion();
+    }
+  }

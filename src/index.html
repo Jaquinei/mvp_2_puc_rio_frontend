@@ -51,8 +51,11 @@
                     <div class="col-md-4 mb-3">
                         <input type="datetime-local" id="newEndDate" class="form-control" placeholder="End Date" data-bs-toggle="tooltip" title="Task end date">
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 mb-1">
                         <button type="button" onclick="newItem()" class="btn btn-success w-100">Add</button>
+                    </div>
+                    <div class="col-12">
+                        <button type="button" onclick="getItemFromNotion()" class="btn btn-primary w-100">Get task from an external API (Notion)</button>
                     </div>
                 </div>
             </form>
