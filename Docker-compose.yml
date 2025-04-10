@@ -23,6 +23,9 @@ services:
       - "5002:5002"
     networks:
       - my_container_network
+    environment:
+        - API_EXTERNA_DATABASE_ID=XXXXXXXXXXX
+        - API_EXTERNA_TOKEN=YYYYYYYYYYYY
 
 networks:
   my_container_network:
