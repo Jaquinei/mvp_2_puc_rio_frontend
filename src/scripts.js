@@ -34,7 +34,6 @@ getList()
   Função para colocar um item na lista do servidor via requisição POST
   --------------------------------------------------------------------------------------
 */
-
 const postItem = async (nameTask, product, type, priority, start_date, end_date) => {
 
   const item_text = 'Task added to the database'
@@ -59,7 +58,6 @@ const postItem = async (nameTask, product, type, priority, start_date, end_date)
       alert(item_error)
     });
 }
-
 
 /*
   --------------------------------------------------------------------------------------
@@ -179,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
   --------------------------------------------------------------------------------------
 */
 const getAllDataFromNotion = (async) => {
-
+  console.log("getAllDataFromNotion");
   fetch(`${SERVER_URL}/notion-data`)
   .then(response => response.json())
   .then(data => {
@@ -202,10 +200,8 @@ const getAllDataFromNotion = (async) => {
   .catch(error => console.error('Erro ao acessar a API externa', error));
 }
 
-getAllDataFromNotion()
-
 const getItemFromNotion = (async) => {
-    console.log("Tamanho da lista atual disponivel ", dataFromExternalApi.length);
+    console.log("getItemFromNotion: Tamanho da lista atual disponivel ", dataFromExternalApi.length);
     if (dataFromExternalApi.length > 0) {
       // Exibindo as propriedades de cada item retornado
       item = dataFromExternalApi.pop(0);
@@ -221,3 +217,5 @@ const getItemFromNotion = (async) => {
       getAllDataFromNotion();
     }
   }
+
+  getAllDataFromNotion()
