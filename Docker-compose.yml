@@ -1,0 +1,29 @@
+version: "2"
+services:
+  frontend:
+    container_name: frontend_puc_rio_sprint_2_mvp_container
+    image: frontend_puc_rio_sprint_2_mvp:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    networks:
+      - my_container_network
+
+  backend:
+    container_name: backend_puc_rio_sprint_2_mvp_container
+    build:
+      context: ../mvp_2_puc_rio_backend  # Path to the backend directory (parent level)
+      dockerfile: Dockerfile
+    image: backend_puc_rio_sprint_2_mvp:latest
+    ports:
+      - "5002:5002"
+    networks:
+      - my_container_network
+
+networks:
+  my_container_network:
+    driver: bridge
