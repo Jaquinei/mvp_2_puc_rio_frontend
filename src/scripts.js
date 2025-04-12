@@ -1,6 +1,6 @@
-
+// GLOBAL constants
 const SERVER_URL = 'http://127.0.0.1:5002'
-
+// GLOBAL variables
 let dataFromExternalApi = []
 
 /*
@@ -27,7 +27,7 @@ const getList = async () => {
   Chamada da função para carregamento inicial dos dados
   --------------------------------------------------------------------------------------
 */
-getList()
+getList();
 
 /*
   --------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ const updateItem = async (taskId, nameTask, product, type, priority, start_date,
 
   let url = `${SERVER_URL}/task`;
   fetch(url, {
-    method: 'post',
+    method: 'put',
     body: formData
   })
     .then((response) => { response.json(); alert(item_text) })
@@ -102,82 +102,6 @@ const postItem = async (nameTask, product, type, priority, start_date, end_date)
       alert(item_error);  // This should probably be alert(item_error);
     });
 }
-
-/*
-  --------------------------------------------------------------------------------------
-  Função para criar um botão close e um edit para cada item da lista
-  --------------------------------------------------------------------------------------
-*/
-const insertButton = (parent) => {
-  let span = document.createElement("span");
-  span.className = "close";
-  span.style.cursor = 'pointer';
-  let icon = document.createElement("i");
-  icon.className = "bi bi-x";
-  span.appendChild(icon);
-
-  let editSpan = document.createElement("span");
-  editSpan.className = "edit";
-  editSpan.style.cursor = 'pointer';
-  let editIcon = document.createElement("i");
-  editIcon.className = "bi bi-pencil";
-  editSpan.appendChild(editIcon);
-
-  parent.appendChild(span);
-  parent.appendChild(editSpan);
-
-  let isEditing = false;
-  let originalValues = [];
-  let inputElements = [];
-
-  editSpan.addEventListener('click', function () {
-    const row = parent.parentNode;
-    const cells = row.children;
-
-    if (!isEditing) {
-      // Start editing
-      originalValues = [];
-      inputElements = [];
-
-      for (let i = 0; i < cells.length - 1; i++) {
-        const cell = cells[i];
-        const originalValue = cell.textContent;
-        originalValues.push(originalValue);
-
-        const input = document.createElement("input");
-        input.value = originalValue;
-
-        cell.textContent = '';
-        cell.appendChild(input);
-        inputElements.push(input); // Keep a direct reference
-      }
-
-      editSpan.innerHTML = '<i class="bi bi-save"></i>';
-      isEditing = true;
-    } else {
-      // Save edits
-      let updated = false;
-      const newValues = [];
-
-      for (let i = 0; i < inputElements.length; i++) {
-        const inputValue = inputElements[i].value;
-        newValues.push(inputValue);
-
-        if (inputValue !== originalValues[i]) {
-          updated = true;
-        }
-      }
-
-      // Apply the saved values to cells in correct order
-      for (let i = 0; i < newValues.length; i++) {
-        cells[i].textContent = newValues[i];
-      }
-
-      editSpan.innerHTML = '<i class="bi bi-pencil"></i>';
-      isEditing = false;
-    }
-  });
-};
 
 /*
   --------------------------------------------------------------------------------------
@@ -253,7 +177,6 @@ const insertEditButton = (parent) => {
     }
   });
 };
-
 
 /*
   --------------------------------------------------------------------------------------
@@ -352,16 +275,9 @@ const insertList = (taskID, nameTask, product, type, priority, start_date, end_d
   removeElement()
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  var tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-  tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-    new bootstrap.Tooltip(tooltipTriggerEl);
-  });
-});
-
 /*
   --------------------------------------------------------------------------------------
-  Função para conectar na API externa e obter os dados
+  Função para conectar na API externa e obter os dados e popular a lista de tarefas localmente (cache)
   --------------------------------------------------------------------------------------
 */
 const getAllDataFromNotion = (async) => {
@@ -388,6 +304,11 @@ const getAllDataFromNotion = (async) => {
     .catch(error => console.error('Erro ao acessar a API externa', error));
 }
 
+/*
+  --------------------------------------------------------------------------------------
+  Função para obter um item da lista de tarefas. Caso não tenha mais itens, a lista é atualizada através de uma requisição para a API externa
+  --------------------------------------------------------------------------------------
+*/
 const getItemFromNotion = (async) => {
   console.log("getItemFromNotion: Tamanho da lista atual disponivel ", dataFromExternalApi.length);
   if (dataFromExternalApi.length > 0) {
@@ -406,4 +327,11 @@ const getItemFromNotion = (async) => {
   }
 }
 
-getAllDataFromNotion()
+document.addEventListener('DOMContentLoaded', function () {
+  var tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+    new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+});
+
+getAllDataFromNotion();
