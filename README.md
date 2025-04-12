@@ -12,9 +12,11 @@ Este repositorio faz parte do MVP e contem o código para o Front-End.
 
 Dentro os cenários apresentados no documento com as instruções sobre os requisitos para o MVP, esse trabalho está enquadrado no Cenário 1.1, uma vez que o acesso a API externa está sendo realizado pelo Back-End.
 
-O Front-End disponibilizado neste repositório contem o dockerFile e o docker compose, possibilitando rodar containerizado. As instruções para fazer o build da imagem e rodar os container estão na seção [Como iniciar o Front-End usando o Docker Compose](#como-iniciar-o-frontend-usando-o-docker)
+O Front-End disponibilizado neste repositório contem o docker file e o docker compose, possibilitando rodar containerizado. 
 
-**Este conteúdo foca nos detalhes de uso do projeto do Front-End.**
+As instruções para fazer o build da imagem e rodar os container estão na seção [Como iniciar o Front-End usando o Docker Compose](#como-iniciar-o-frontend-usando-o-docker)
+
+**Este README foca nos detalhes de setup e uso do projeto do Front-End.** Para detalhes sobre o projeto do Back-End, acesse o repositório https://github.com/Jaquinei/mvp_2_puc_rio_backend
 
 ## Diagrama
 
@@ -24,11 +26,16 @@ Arquitetura implementada.
 
 ## Front-End (Interface)
 
-O Front-End foi desenvolvido usando HTML, CSS e JavaScript e Bootstrap. Pode ser usado independentemente do Back-End, mas para persistir os dados é necessário que o Back-End esteja rodando.
+O Front-End foi desenvolvido usando *HTML*, *CSS* e *JavaScript* e *Bootstrap*. Pode ser usado independentemente do Back-End, mas para persistir os dados é necessário que o Back-End esteja rodando.
 
-O Front-End utiliza uma REST API (disponibilizada pelo Back-End) para popular os dados e atualizar o banco de dados contino no Back-End. Através da REST API, é possível acessar dados de uma pagina do Notion. O Back-End utiliza a API do Notion para obter os dados e disponibilizá-los para o Front-End.
+O Front-End utiliza uma *REST API* (disponibilizada pelo Back-End) para popular e atualizar o banco de dados contido no Back-End. Através da *REST API*, é possível acessar dados que foram populados uma pagina do Notion. O Back-End utiliza a API do Notion para obter os dados e disponibilizá-los para o Front-End.
 
-A interface permite o cadastro de tarefas para serem executadas pelo time de Devops da empresa. E tarefas preenchidas por terceiros em uma página Notion, podem ser tratadas conforme o time deseje.
+A interface permite o cadastro de tarefas para serem executadas pelo time de *DevOps* da empresa. Tarefas preenchidas por terceiros em uma página Notion, podem ser tratadas por esse sistema, conforme o time assin o deseje.
+
+### Notion page
+Abaixo a pagina do Notion de onde serão extraidas as informações de terafas a serem tratadas pelo time de DevOps.
+
+![Lista de terefas disponível no Notion](./src/assets/diagram/notion_page.png)
 
 
 ### Como iniciar o Front-End usando o Docker Compose:
