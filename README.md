@@ -78,8 +78,8 @@ Para o backend acessar a API é necessário utilizar as seguintes informações:
 - Token Notion
 - Database ID
 
-Estas informações (Notion API URL, Token e Database ID) serão disponibilizadas no texto de submissão deste MVP.
-Para executar o Docker Compose, as informações deverão ser adiconadas na seção environment do arquivo. Será necessário preencher os campos API_EXTERNA_DATABASE_ID e API_EXTERNA_TOKEN para possibilitar a conexão com o Notion.
+Estas informações (*Notion API URL*, *Token e Database ID*) serão disponibilizadas no texto de submissão deste MVP.
+Para executar o Docker Compose, as informações deverão ser adiconadas na seção environment do arquivo. Será necessário preencher os campos *API_EXTERNA_DATABASE_ID* e *API_EXTERNA_TOKEN* para possibilitar a conexão com o Notion.
 
 Exemplo do Docker-Compose:
 ```
@@ -87,19 +87,25 @@ Exemplo do Docker-Compose:
         - API_EXTERNA_DATABASE_ID=xxxxxx
         - API_EXTERNA_TOKEN=yyyyyy
 ```
-(substitua o texto xxxxxx com o Databse ID fornecido no texto da submissão do MVP e o yyyyyy com o Token Notion forneciso no texto da submissão do MVP)
+(substitua o texto xxxxxx com o *Databse ID* fornecido no texto da submissão do MVP e o yyyyyy com o *Token Notion* forneciso no texto da submissão do MVP)
 
-Foi criada um Notion page com uma lista de Tasks. Essas tasks podem ser incluidas no Prodution Automation Tool através do botão na Interface "Get task from an external API (Notion)". 
+Foi criada um Notion page com uma lista de Tasks. Essas tasks podem ser incluidas no Prodution Automation Tool através do botão na Interface *"Get task from an external API (Notion)"*. 
 Para acessar a lista do Notion, diretamente, o seguinte link pode ser usado (https://www.notion.so/1ce16f12775a80da8366cacacaa3d3da?v=1ce16f12775a807e846d000c874669ac&pvs=4).
 
-# Development environment
+# Development environment - Annotations
+Somente para desenvolvimento e troubleshooting. Não é necessário para a avaliação do MVP.
 
 ## Como executar o Front-End
 
 ### Dev
 
 Faça clone do projeto
+
+Opção 01:
  - abra o arquivo *index.html* no seu browser (idealmente inicie o Back-End usando as instruções do *README* disponível no repositório do Back-End)
+
+Opção 02:
+-  após iniciar o container, acesse a URL http://localhost:8080
 
 ### Docker
 
