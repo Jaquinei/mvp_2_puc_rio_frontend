@@ -269,7 +269,6 @@ const updateElement = () => {
 
         if (confirm("Do you confirm the edit of the task from the database?")) {
           updateItem(taskID, taskName, taskProduct, taskType, taskPriority, taskStartData, taskEndDate);
-          alert("Task update from database!");
         }
       }
     }
