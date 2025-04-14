@@ -59,24 +59,9 @@ const updateItem = async (taskId, nameTask, product, type, priority, start_date,
   };
 
   console.log("payload", JSON.stringify(payload));
-  /*
-  const formData = new FormData();
-  formData.append('id', taskId);
-  formData.append('name', nameTask);
-  formData.append('product', product);
-  formData.append('task_type', mapNotionTasktoNumber(type));
-  formData.append('priority', priority);
-  formData.append('start_date', start_date);
-  formData.append('end_date', end_date);
-  */
 
   let url = `${SERVER_URL}/task/${taskId}`;
-  /*
-  fetch(url, {
-    method: 'put',
-    body: formData
-  })
-    */
+
   fetch(url, {
     method: 'PUT',
     headers: {
@@ -134,7 +119,11 @@ const postItem = async (nameTask, product, type, priority, start_date, end_date)
         console.log("Server responded with:", body);
         return body;
       } else {
-        alert(`Error (${status}): ${body.message || "Unknown error"}`);
+        if (status == 409) {
+          alert(`Error (${status}): ${body.error || "Unknown error"}`);
+        } else {
+          alert(`Error (${status}): ${body.message || "Unknown error"}`);
+        }
       }
     })
     .catch((error) => {
@@ -326,8 +315,10 @@ const newItem = async () => {
     alert("The field Priority and the field Type must be a number!");
   } else {
     let result = await postItem(inputTask, inputProduct, mapNotionTasktoNumber(inputType), inputPriority, inputStartDate, inputEndDate);
-    alert(JSON.stringify(result));
-    insertList(result.id, inputTask, inputProduct, inputType, inputPriority, inputStartDate, inputEndDate);
+    if (result) {
+      alert(JSON.stringify(result));
+      insertList(result.id, inputTask, inputProduct, inputType, inputPriority, inputStartDate, inputEndDate);
+    }
   }
 }
 
